@@ -12,3 +12,11 @@ UserParameter=gpu.utilization.dec.min[*],nvidia-smi -q -d UTILIZATION -i $1 | gr
 UserParameter=gpu.utilization.dec.max[*],nvidia-smi -q -d UTILIZATION -i $1 | grep -A 5  DEC | grep Max | tr -s ' ' | cut -d ' ' -f 4
 UserParameter=gpu.utilization.enc.min[*],nvidia-smi -q -d UTILIZATION -i $1 | grep -A 5  ENC | grep Min | tr -s ' ' | cut -d ' ' -f 4
 UserParameter=gpu.utilization.enc.max[*],nvidia-smi -q -d UTILIZATION -i $1 | grep -A 5  ENC | grep Max | tr -s ' ' | cut -d ' ' -f 4
+
+UserParameter=gpu.username, ps aux --sort=-pcpu | head -n 5 |  sed -n '2p' | awk '{print $1}'
+UserParameter=gpu.userpid, ps aux --sort=-pcpu | head -n 5 |  sed -n '2p' | awk '{print $2}'
+UserParameter=gpu.usercpu, ps aux --sort=-pcpu | head -n 5 |  sed -n '2p' | awk '{print $3}'
+UserParameter=gpu.usermem, ps aux --sort=-pcpu | head -n 5 |  sed -n '2p' | awk '{print $4}'
+UserParameter=gpu.timestart, ps aux --sort=-pcpu | head -n 5 |  sed -n '2p' | awk '{print $9}'
+UserParameter=gpu.timeuse, ps aux --sort=-pcpu | head -n 5 |  sed -n '2p' | awk '{print $10}'
+UserParameter=gpu.usercmd, ps aux --sort=-pcpu | head -n 5 |  sed -n '2p' | awk '{for(i=11; i<=NF; i++) printf "%s ", $i; print ""}'
